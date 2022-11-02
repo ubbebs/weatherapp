@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.text-shadow {
+    text-shadow: 0 0 5px rgba(0,0,0,1);
+}
+
+.details-show {
+    overflow: hidden;
+    transition: all 500ms ease;
+}
+
+.details-hide {
+    max-height: 0;
+    overflow: hidden;
+    transition: all 500ms ease;
+}
