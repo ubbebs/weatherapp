@@ -5,15 +5,23 @@ import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 import { App } from './App';
 
 describe('App', () => {
-  it('Render hello world', () => {
+  it('Check whether header is rendered', () => {
     const queryClient = new QueryClient();
     render(
       <QueryClientProvider client={queryClient}>
         <App />
       </QueryClientProvider>,
     );
-    expect(screen.getByRole('heading', {
-      level: 1,
-    })).toHaveTextContent('Weather Online');
+    expect(screen.getByRole('header')).toBeDefined();
+  });
+
+  it('Check whether main is rendered', () => {
+    const queryClient = new QueryClient();
+    render(
+      <QueryClientProvider client={queryClient}>
+        <App />
+      </QueryClientProvider>,
+    );
+    expect(screen.getByRole('mainpage')).toBeDefined();
   });
 });

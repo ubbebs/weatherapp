@@ -1,7 +1,6 @@
 import { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
 import moment from 'moment';
-import { fetchCurrentWeather } from '../../utils/fetcher';
+import { useFetchCurrentWeather } from '../../utils/fetcher';
 
 type WeatherDetailsProps = {
   latitude: number,
@@ -11,12 +10,7 @@ type WeatherDetailsProps = {
 function WeatherDetails(props: WeatherDetailsProps) {
   const [selected, setSelected] = useState(false);
   const { latitude, longitude } = props;
-
-  const { data } = useQuery(
-    ['weathercurrent'],
-    () => fetchCurrentWeather(latitude, longitude),
-    { enabled: false },
-  );
+  const { data } = useFetchCurrentWeather(latitude, longitude);
 
   return (
     data && (

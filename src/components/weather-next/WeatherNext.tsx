@@ -1,8 +1,8 @@
 /* eslint-disable react/no-array-index-key */
 import moment from 'moment';
 import { useEffect, useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { fetchNextWeather } from '../../utils/fetcher';
+import { useFetchNextWeather } from '../../utils/fetcher';
+import { closeLoader, loader } from '../../utils/style-dependency';
 
 type WeatherNextProps = {
   latitude: number,
@@ -23,11 +23,7 @@ type PropsMapElem = {
 function WeatherNext(props: WeatherNextProps) {
   const [selected, setSelected] = useState<number | null>(null);
   const { latitude, longitude } = props;
-
-  const { data, refetch } = useQuery(
-    ['weathernext'],
-    () => fetchNextWeather(latitude, longitude),
-  );
+  const { data, refetch, isFetching } = useFetchNextWeather(latitude, longitude);
 
   useEffect(() => {
     refetch();
@@ -42,6 +38,7 @@ function WeatherNext(props: WeatherNextProps) {
 
   return (
     <div className="flex flex-col gap-2">
+      {isFetching ? loader() : closeLoader()}
       {data ? (
         data.list.map((elem: PropsMapElem, index: number) => {
           if (index % 8 === 0) {
